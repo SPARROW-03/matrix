@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- This file is not a robot in and of itself, it just contains some useful tags that could be included in any robot -->
+  <material name="base_blue">
+    <color rgba="0 0 0.50196 1"/>
+  </material>
+
+  <material name="wheel_black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <material name="light_grey">
+    <color rgba="0.79216 0.81961 0.93333 1"/>
+  </material>
+
+  <gazebo reference="base_link">
+    <material>base_blue</material>
+  </gazebo>
+
+  <gazebo reference="left_wheel">
+    <material>wheel_black</material>
+  </gazebo>
+
+  <gazebo reference="right_wheel">
+    <material>wheel_black</material>
+  </gazebo>
+
+  <gazebo reference="castor">
+    <material>light_grey</material>
+  </gazebo>
+
+  <gazebo reference="imu">
+    <material>light_grey</material>
+  </gazebo>
+
+  <gazebo reference="lidar">
+    <material>light_grey</material>
+  </gazebo>
+
+  <gazebo reference="camera">
+    <material>light_grey</material>
+  </gazebo>
+
+  <gazebo reference="left_wheel">
+    <mu>1.0</mu>
+    <mu2>1.0</mu2>
+    <kp>1e6</kp>
+    <kd>1.0</kd>
+  </gazebo>
+
+  <gazebo reference="right_wheel">
+    <mu>1.0</mu>
+    <mu2>1.0</mu2>
+    <kp>1e6</kp>
+    <kd>1.0</kd>
+  </gazebo>
+
+
+
+</robot>
