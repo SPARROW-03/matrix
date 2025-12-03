@@ -1,242 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<robot name="Matrix_bot">
-  <link name="base_link">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="2.0"/>
-      <inertia ixx="0.02" ixy="0.0" ixz="0.0"
-               iyy="0.02" iyz="0.0"
-               izz="0.03"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/base_link.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0 0 0.5 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/base_link.STL"/>
-      </geometry>
-    </collision>
-  </link>
 
-  <link name="left_wheel">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.2"/>
-      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
-               iyy="0.001" iyz="0.0"
-               izz="0.0015"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/left_wheel.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/left_wheel.STL"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="left_wheel_joint" type="continuous">
-    <origin xyz="0.15278 -0.19761 0.07511" rpy="1.5708 1.2605 0"/>
-    <parent link="base_link"/>
-    <child link="left_wheel"/>
-    <axis xyz="0 0 1"/>
-  </joint>
-
-  <link name="right_wheel">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.2"/>
-      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
-               iyy="0.001" iyz="0.0"
-               izz="0.0015"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/right_wheel.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/right_wheel.STL"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="right_wheel_joint" type="continuous">
-    <origin xyz="0.15278 -0.082606 0.07511" rpy="1.5708 1.2605 0"/>
-    <parent link="base_link"/>
-    <child link="right_wheel"/>
-    <axis xyz="0 0 1"/>
-  </joint>
-
-  <link name="camera">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.1"/>
-      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
-               iyy="0.0005" iyz="0.0"
-               izz="0.0005"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/camera.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0.79 0.82 0.93 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/camera.STL"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="camera_joint" type="fixed">
-    <origin xyz="-0.00222 -0.14781 0.13036" rpy="-1.5708 0 -3.1416"/>
-    <parent link="base_link"/>
-    <child link="camera"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-
-  <link name="imu_sensor">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.1"/>
-      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
-               iyy="0.0005" iyz="0.0"
-               izz="0.0005"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/imu_sensor.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0.79 0.82 0.93 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/imu_sensor.STL"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="imu_sensor_joint" type="fixed">
-    <origin xyz="0.16926 -0.14761 0.098569" rpy="1.5708 0.016066 0"/>
-    <parent link="base_link"/>
-    <child link="imu_sensor"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-
-  <link name="castor_wheel">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.2"/>
-      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
-               iyy="0.001" iyz="0.0"
-               izz="0.001"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/castor_wheel.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0.79 0.82 0.93 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/castor_wheel.STL"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="castor_wheel_joint" type="fixed">
-    <origin xyz="0.02078 -0.11267 0.072307" rpy="2.6965 -0.45783 0.27225"/>
-    <parent link="base_link"/>
-    <child link="castor_wheel"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-
-  <link name="lidar_sensor">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.1"/>
-      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
-               iyy="0.0005" iyz="0.0"
-               izz="0.0005"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/lidar_sensor.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0.79 0.82 0.93 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://matrix_bot/meshes/lidar_sensor.STL"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="lidar_sensor_joint" type="fixed">
-    <origin xyz="0.01278 -0.14761 0.14811" rpy="1.5708 0 0"/>
-    <parent link="base_link"/>
-    <child link="lidar_sensor"/>
-    <axis xyz="0 0 0"/>
-=======
 <!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
-<robot
-  name="Matrix_bot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="Matrix_bot">
+  <xacro:include filename="$(find matrix_bot)/urdf/matrix_inertia.xacro"/>
   <link
     name="base_link">
     <inertial>
       <origin
-        xyz="0.093369 0.11497 0.14761"
+        xyz="-0.087964 0.14761 0.1128"
         rpy="0 0 0" />
       <mass
-        value="0.13905" />
+        value="0.5" />
       <inertia
-        ixx="0.00017494"
-        ixy="2.0984E-05"
-        ixz="1.0621E-19"
-        iyy="0.00050221"
-        iyz="-3.5355E-20"
-        izz="0.00045182" />
+        ixx="0.00018556"
+        ixy="-1.1828E-19"
+        ixz="3.3411E-06"
+        iyy="0.00052301"
+        iyz="-2.6641E-20"
+        izz="0.00056345" />
     </inertial>
     <visual>
       <origin
@@ -244,7 +27,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/base_link.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -258,26 +41,25 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/base_link.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
-  
   <link
     name="left_wheel">
     <inertial>
       <origin
-        xyz="1.3878E-17 0 0.0075"
+        xyz="0 0.0075 0"
         rpy="0 0 0" />
       <mass
-        value="0.029452" />
+        value="0.2" />
       <inertia
-        ixx="5.1542E-06"
+        ixx="2.375E-05"
         ixy="0"
-        ixz="-4.7835E-22"
-        iyy="5.1542E-06"
-        iyz="1.1369E-22"
-        izz="9.2039E-06" />
+        ixz="0"
+        iyy="2.375E-05"
+        iyz="0"
+        izz="4E-05" />
     </inertial>
     <visual>
       <origin
@@ -285,7 +67,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/left_wheel.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -299,7 +81,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/left_wheel.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -307,30 +89,30 @@
     name="left_wheel_joint"
     type="continuous">
     <origin
-      xyz="0.15278 -0.19761 0.07511"
-      rpy="1.5708 1.2605 0" />
+      xyz="-0.15778 0.19761 0.07511"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="left_wheel" />
     <axis
-      xyz="0 0 1" />
+      xyz="0 1 0" />
   </joint>
   <link
     name="right_wheel">
     <inertial>
       <origin
-        xyz="0 0 0.0075"
+        xyz="0 0.0075 0"
         rpy="0 0 0" />
       <mass
-        value="0.029452" />
+        value="0.2" />
       <inertia
-        ixx="5.1542E-06"
-        ixy="-1.0588E-22"
-        ixz="7.0424E-22"
-        iyy="5.1542E-06"
-        iyz="-1.0273E-22"
-        izz="9.2039E-06" />
+        ixx="2.375E-05"
+        ixy="0"
+        ixz="0"
+        iyy="2.375E-05"
+        iyz="0"
+        izz="4E-05" />
     </inertial>
     <visual>
       <origin
@@ -338,7 +120,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/right_wheel.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -352,7 +134,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/right_wheel.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/right_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -360,29 +142,188 @@
     name="right_wheel_joint"
     type="continuous">
     <origin
-      xyz="0.15278 -0.082606 0.07511"
-      rpy="1.5708 1.2605 0" />
+      xyz="-0.15101 0.082606 0.07511"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="right_wheel" />
     <axis
-      xyz="0 0 1" />
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="castor">
+    <inertial>
+      <origin
+        xyz="0 0.01 6.9389E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.0041888" />
+      <inertia
+        ixx="2E-06"
+        ixy="0"
+        ixz="0"
+        iyy="2E-06"
+        iyz="0"
+        izz="2E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/castor.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/castor.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="castor_joint"
+    type="fixed">
+    <origin
+      xyz="-0.01278 0.13761 0.06011"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="castor" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="imu">
+    <inertial>
+      <origin
+        xyz="-0.0021474 0 0.00098837"
+        rpy="0 0 0" />
+      <mass
+        value="0.001935" />
+      <inertia
+        ixx="1.3414E-07"
+        ixy="-1.1117E-22"
+        ixz="6.627E-09"
+        iyy="2.6503E-07"
+        iyz="8.4705E-24"
+        izz="3.9614E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/imu.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/imu.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="-0.16778 0.14761 0.09811"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="lidar">
+    <inertial>
+      <origin
+        xyz="0 -2.7756E-17 0.005"
+        rpy="0 0 0" />
+      <mass
+        value="0.025" />
+      <inertia
+        ixx="1.6146E-06"
+        ixy="0"
+        ixz="0"
+        iyy="1.6146E-06"
+        iyz="0"
+        izz="2.8125E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/lidar.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/lidar.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="-0.01278 0.14761 0.14811"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lidar" />
+    <axis
+      xyz="0 0 0" />
   </joint>
   <link
     name="camera">
     <inertial>
       <origin
-        xyz="0.0025169 2.7756E-17 0"
+        xyz="0.0025169 0 -2.7756E-17"
         rpy="0 0 0" />
       <mass
         value="0.0014912" />
       <inertia
         ixx="7.1209E-08"
-        ixy="-1.0818E-24"
-        ixz="1.6981E-25"
+        ixy="1.4925E-25"
+        ixz="-2.0323E-22"
         iyy="4.109E-08"
-        iyz="-1.2613E-25"
+        iyz="-4.5211E-25"
         izz="4.109E-08" />
     </inertial>
     <visual>
@@ -391,7 +332,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/camera.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/camera.STL" />
       </geometry>
       <material
         name="">
@@ -405,7 +346,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://matrix_bot/meshes/camera.STL" />
+          filename="file:///home/dev/dev_ws/src/matrix/matrix_bot/meshes/camera.STL" />
       </geometry>
     </collision>
   </link>
@@ -413,8 +354,8 @@
     name="camera_joint"
     type="fixed">
     <origin
-      xyz="-0.00222 -0.14781 0.13036"
-      rpy="-1.5708 0 -3.1416" />
+      xyz="0.00222 0.14761 0.12811"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
@@ -422,164 +363,5 @@
     <axis
       xyz="0 0 0" />
   </joint>
-  <link
-    name="imu_sensor">
-    <inertial>
-      <origin
-        xyz="0.0021474 0.00098837 0"
-        rpy="0 0 0" />
-      <mass
-        value="0.001935" />
-      <inertia
-        ixx="1.3414E-07"
-        ixy="-6.627E-09"
-        ixz="4.4804E-23"
-        iyy="3.9614E-07"
-        iyz="-4.7168E-22"
-        izz="2.6503E-07" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://matrix_bot/meshes/imu_sensor.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://matrix_bot/meshes/imu_sensor.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="imu_sensor_joint"
-    type="fixed">
-    <origin
-      xyz="0.16926 -0.14761 0.098569"
-      rpy="1.5708 0.016066 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="imu_sensor" />
-    <axis
-      xyz="0 0 0" />
-  </joint>
-  <link
-    name="castor_wheel">
-    <inertial>
-      <origin
-        xyz="-0.0081505 0.031103 0.010389"
-        rpy="0 0 0" />
-      <mass
-        value="0.050965" />
-      <inertia
-        ixx="1.0784E-05"
-        ixy="2.1176E-22"
-        ixz="-1.0588E-21"
-        iyy="1.0784E-05"
-        iyz="-1.0588E-21"
-        izz="1.0784E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://matrix_bot/meshes/castor_wheel.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://matrix_bot/meshes/castor_wheel.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="castor_wheel_joint"
-    type="fixed">
-    <origin
-      xyz="0.02078 -0.11267 0.072307"
-      rpy="2.6965 -0.45783 0.27225" />
-    <parent
-      link="base_link" />
-    <child
-      link="castor_wheel" />
-    <axis
-      xyz="0.24121 -0.92049 -0.30745" />
-  </joint>
-  <link
-    name="lidar_sensor">
-    <inertial>
-      <origin
-        xyz="0 0.005 -2.7756E-17"
-        rpy="0 0 0" />
-      <mass
-        value="0.0070686" />
-      <inertia
-        ixx="4.5651E-07"
-        ixy="-1.0245E-39"
-        ixz="0"
-        iyy="7.9522E-07"
-        iyz="-1.4349E-39"
-        izz="4.5651E-07" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://matrix_bot/meshes/lidar_sensor.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://matrix_bot/meshes/lidar_sensor.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="lidar_sensor_joint"
-    type="fixed">
-    <origin
-      xyz="0.01278 -0.14761 0.14811"
-      rpy="1.5708 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="lidar_sensor" />
-    <axis
-      xyz="0 0 0" />
->>>>>>> 80d1971c12ce656bc8cef38e0d1b17ec856ce8a3
-  </joint>
 </robot>
+
