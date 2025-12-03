@@ -76,12 +76,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        castor_wheel:
+        castor:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        imu_sensor:
+        imu:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -91,7 +91,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        lidar_sensor:
+        lidar:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -109,20 +109,6 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Class: rviz_default_plugins/TF
-      Enabled: false
-      Frame Timeout: 15
-      Frames:
-        All Enabled: true
-      Marker Scale: 1
-      Name: TF
-      Show Arrows: true
-      Show Axes: true
-      Show Names: false
-      Tree:
-        {}
-      Update Interval: 0
-      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -169,25 +155,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.1516705751419067
+      Distance: 0.6825525760650635
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.16347484290599823
-        Y: -0.21694423258304596
-        Z: 0.09989072382450104
+        X: -0.0727359801530838
+        Y: 0.11271589994430542
+        Z: -0.02827010117471218
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.019601482897996902
+      Pitch: 0.39039838314056396
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.9053980112075806
+      Yaw: 1.2603975534439087
     Saved: ~
 Window Geometry:
   Displays:

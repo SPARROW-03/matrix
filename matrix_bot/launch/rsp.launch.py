@@ -13,6 +13,7 @@ def generate_launch_description():
     # Get package path and URDF file path
     pkg_path = get_package_share_directory('matrix_bot')
     urdf_file = os.path.join(pkg_path, 'urdf', 'Matrix_bot.urdf')
+    rviz_config_file = os.path.join(pkg_path, 'config', 'rviz.rviz')
 
     # Process URDF file with xacro
     robot_description=xacro.process_file(urdf_file).toxml()
@@ -33,7 +34,8 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         output='screen',
-        parameters=[{'use_sim_time': use_sim_time}]
+        parameters=[{'use_sim_time': use_sim_time}],
+        arguments=['-d', rviz_config_file]
     )
 
     joint_state_publisher = Node(
