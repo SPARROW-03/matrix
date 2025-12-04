@@ -15,47 +15,39 @@
   </material>
 
   <gazebo reference="base_link">
-    <material>base_blue</material>
+    <material>Gazebo/SkyBlue</material>
   </gazebo>
 
   <gazebo reference="left_wheel">
-    <material>wheel_black</material>
+    <material>Gazebo/Black</material>
+    <mu>1.0</mu>
+    <mu2>1.0</mu2>
+    <kp>1e6</kp>
+    <kd>1.0</kd>
   </gazebo>
 
   <gazebo reference="right_wheel">
-    <material>wheel_black</material>
+    <material>Gazebo/Black</material>
+    <mu>1.0</mu>
+    <mu2>1.0</mu2>
+    <kp>1e6</kp>
+    <kd>1.0</kd>
   </gazebo>
 
   <gazebo reference="castor">
-    <material>light_grey</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
 
   <gazebo reference="imu">
-    <material>light_grey</material>
+    <material>Gazebo/Green</material>
   </gazebo>
 
   <gazebo reference="lidar">
-    <material>light_grey</material>
+    <material>Gazebo/Black</material>
   </gazebo>
 
   <gazebo reference="camera">
-    <material>light_grey</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
-
-  <gazebo reference="left_wheel">
-    <mu>1.0</mu>
-    <mu2>1.0</mu2>
-    <kp>1e6</kp>
-    <kd>1.0</kd>
-  </gazebo>
-
-  <gazebo reference="right_wheel">
-    <mu>1.0</mu>
-    <mu2>1.0</mu2>
-    <kp>1e6</kp>
-    <kd>1.0</kd>
-  </gazebo>
-
-
 
 </robot>
