@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<xacro:macro name="imu_plugin" params="">
+
+    <gazebo reference="imu">
+        <sensor name="imu_sensor" type="imu">
+            <update_rate>50</update_rate>
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>true</visualize>
+
+            <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+                <ros>
+                    <remapping>imu_plugin/imu:=imu/data</remapping>
+                </ros>
+                <topic_name>imu/data</topic_name>
+                <frame_name>imu</frame_name>
+                <gaussian_noise>0.0001</gaussian_noise>
+            </plugin>
+        </sensor>
+    </gazebo>
+</xacro:macro>``
