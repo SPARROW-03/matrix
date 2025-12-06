@@ -17,8 +17,8 @@ diff_drive_controller:
     left_wheel_names: ["left_wheel_joint"]
     right_wheel_names: ["right_wheel_joint"]
 
-    wheel_separation: 0.2 # Distance between the wheels
-    wheel_radius: 0.04   # Radius of the wheels
+    wheel_separation: 0.1 # Distance between the wheels
+    wheel_radius: 0.025   # Radius of the wheels
 
     cmd_vel_timeout: 0.5
     use_stamped_vel: false
