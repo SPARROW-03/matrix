@@ -4,7 +4,7 @@
     <gazebo reference="lidar">
         <sensor name="lidar_sensor" type="ray">
             <update_rate>20</update_rate>
-            <pose>0 0 0 0 0 0</pose>
+            <pose>0 0 0.005 0 0 0</pose>
             <visualize>true</visualize>
 
             <ray>
