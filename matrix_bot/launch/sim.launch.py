@@ -54,7 +54,7 @@ def generate_launch_description():
     return LaunchDescription([
         gazebo,
         spawn_entity,
-        Joint_state_broadcaster_spawner,
-        controller_manager,
-        diff_drive_spawner
+        #Joint_state_broadcaster_spawner,
+        #controller_manager,
+        #diff_drive_spawner
     ])
