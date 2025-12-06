@@ -7,7 +7,8 @@
   <xacro:include filename="$(find matrix_bot)/urdf/matrix_inertia.xacro"/>
   <xacro:include filename="$(find matrix_bot)/urdf/gazebo_references_plugins.xacro"/>
   <xacro:include filename="$(find matrix_bot)/urdf/gazebo_ros2_control.xacro"/>
-  
+  <xacro:include filename="$(find matrix_bot)/urdf/lidar_plugin.xacro"/>
+
   <link
     name="base_link">
     <inertial>
