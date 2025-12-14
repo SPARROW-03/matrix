@@ -11,21 +11,21 @@ def generate_launch_description():
     pkg_path=os.path.join(get_package_share_directory('matrix_bot'))
     controller_yaml=os.path.join(pkg_path,'config','controller.yaml')
     
-    
+    world_file=os.path.join(pkg_path,'world','matrix.world')
     urdf_file = os.path.join(pkg_path, 'urdf', 'Matrix_bot.urdf')
     robot_description=xacro.process_file(urdf_file).toxml()
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('gazebo_ros'),'launch','gazebo.launch.py')]),
-        launch_arguments=[('use_sim_time','true'),('world','empty_world')]
+        launch_arguments=[('use_sim_time', 'true'),('world', world_file)]
     )
 
     spawn_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
         arguments=['-topic','robot_description',
-                   '-entity','matrix',
-                   '-x', '0.0', '-y', '0.0', '-z', '0.0'],
+                   '-entity','matrix_bot',
+                   '-x', '0.0', '-y', '0.0', '-z', '0.01'],
         output='screen'
     )
 
