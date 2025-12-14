@@ -20,16 +20,16 @@
 
   <gazebo reference="left_wheel">
     <material>Gazebo/Black</material>
-    <mu>0.50</mu>
-    <mu2>0.50</mu2>
+    <mu>1.0</mu>
+    <mu2>1.0</mu2>
     <kp>1e6</kp>
     <kd>1.0</kd>
   </gazebo>
 
   <gazebo reference="right_wheel">
     <material>Gazebo/Black</material>
-    <mu>0.50</mu>
-    <mu2>0.50</mu2>
+    <mu>1.0</mu>
+    <mu2>1.0</mu2>
     <kp>1e6</kp>
     <kd>1.0</kd>
   </gazebo>
