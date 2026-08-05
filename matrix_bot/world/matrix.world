@@ -481,7 +481,7 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose>5.69408 4.03716 0 0 -0 0</pose>
+      <pose>5.69408 4.03716 0 0 - 0 0</pose>
     </model>
     <model name='nist_maze_wall_240_1'>
       <static>1</static>
@@ -523,13 +523,33 @@
       <pose>4.80508 3.97791 0 0 -0 0</pose>
     </model>
     <model name='number1'>
-      <pose>3.57831 -0.402724 0.4 0 -0 0</pose>
-      <static>1</static>
+      <pose>3.57831 -0.402724 0.2 0 -0 0</pose>
+      <static>0</static>
       <link name='link'>
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.02</ixx>
+            <ixy>0.0</ixy>
+            <ixz>0.0</ixz>
+            <iyy>0.02</iyy>
+            <iyz>0.0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.8 0.8 0.8</scale>
+            </mesh>
+          </geometry>
+        </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.8 0.8 0.8</scale>
             </mesh>
           </geometry>
           <material>
@@ -546,13 +566,33 @@
       </link>
     </model>
     <model name='number2'>
-      <pose>-2.30436 -0.748787 0.4 0 -0 0</pose>
-      <static>1</static>
+      <pose>-2.30436 -0.748787 0.2 0 -0 0</pose>
+      <static>0</static>
       <link name='link'>
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.02</ixx>
+            <ixy>0.0</ixy>
+            <ixz>0.0</ixz>
+            <iyy>0.02</iyy>
+            <iyz>0.0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.8 0.8 0.8</scale>
+            </mesh>
+          </geometry>
+        </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.8 0.8 0.8</scale>
             </mesh>
           </geometry>
           <material>
@@ -569,13 +609,33 @@
       </link>
     </model>
     <model name='number3'>
-      <pose>-2.36445 3.44943 0.4 0 -0 0</pose>
-      <static>1</static>
+      <pose>-2.36445 3.44943 0.2 0 -0 0</pose>
+      <static>0</static>
       <link name='link'>
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.02</ixx>
+            <ixy>0.0</ixy>
+            <ixz>0.0</ixz>
+            <iyy>0.02</iyy>
+            <iyz>0.0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
+            </mesh>
+          </geometry>
+        </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
           <material>
@@ -592,13 +652,33 @@
       </link>
     </model>
     <model name='number4'>
-      <pose>6.34125 3.26759 0.4 0 -0 0</pose>
-      <static>1</static>
+      <pose>6.34125 3.26759 0.2 0 -0 0</pose>
+      <static>0</static>
       <link name='link'>
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.02</ixx>
+            <ixy>0.0</ixy>
+            <ixz>0.0</ixz>
+            <iyy>0.02</iyy>
+            <iyz>0.0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
+            </mesh>
+          </geometry>
+        </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
           <material>
@@ -615,13 +695,33 @@
       </link>
     </model>
     <model name='number5'>
-      <pose>6.16254 -6.07156 0.4 0 -0 0</pose>
-      <static>1</static>
+      <pose>6.16254 -6.07156 0.2 0 -0 0</pose>
+      <static>0</static>
       <link name='link'>
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.02</ixx>
+            <ixy>0.0</ixy>
+            <ixz>0.0</ixz>
+            <iyy>0.02</iyy>
+            <iyz>0.0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.8 0.8 0.8</scale>
+            </mesh>
+          </geometry>
+        </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.8 0.8 0.8</scale>
             </mesh>
           </geometry>
           <material>
@@ -638,13 +738,33 @@
       </link>
     </model>
     <model name='number6'>
-      <pose>-2.79454 -5.7378 0.4 0 -0 0</pose>
-      <static>1</static>
+      <pose>-2.79454 -5.7378 0.2 0 -0 0</pose>
+      <static>0</static>
       <link name='link'>
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.02</ixx>
+            <ixy>0.0</ixy>
+            <ixz>0.0</ixz>
+            <iyy>0.02</iyy>
+            <iyz>0.0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
+            </mesh>
+          </geometry>
+        </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
           <material>

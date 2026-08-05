@@ -1,42 +1,47 @@
 import os
-from ament_index_python import get_package_share_directory
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 import xacro
 
 def generate_launch_description():
-    pkg_path=os.path.join(get_package_share_directory('matrix_bot'))
-    controller_yaml=os.path.join(pkg_path,'config','controller.yaml')
-    
-    world_file=os.path.join(pkg_path,'world','matrix.world')
+    pkg_path = os.path.join(get_package_share_directory('matrix_bot'))
     urdf_file = os.path.join(pkg_path, 'urdf', 'Matrix_bot.urdf')
-    robot_description=xacro.process_file(urdf_file).toxml()
+    world = os.path.join(pkg_path, 'world', 'matrix.world')
+    # Process XACRO/URDF file
+    robot_description_xml = xacro.process_file(urdf_file).toxml()
 
+    # 1. Gazebo Launch (Stripped down to default empty world)
     gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('gazebo_ros'),'launch','gazebo.launch.py')]),
-        launch_arguments=[('use_sim_time', 'true'),('world', world_file)]
+        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
+        launch_arguments=[('use_sim_time', 'true'), ('world', world)]  # Added the ('world', world) tuple
     )
 
+    # 2. Robot State Publisher
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        output='screen',
+        parameters=[{
+            'use_sim_time': True, 
+            'robot_description': robot_description_xml
+        }]
+    )
+
+    # 3. Spawn Entity (Spawns your bot directly at the center of the empty world)
     spawn_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-topic','robot_description',
-                   '-entity','matrix_bot',
+        arguments=['-topic', 'robot_description',
+                   '-entity', 'matrix_bot',
                    '-x', '0.0', '-y', '0.0', '-z', '0.0'],
         output='screen'
     )
 
-    controller_manager = Node(
-        package='controller_manager',
-        executable='ros2_control_node',
-        parameters=[{'robot_description':robot_description}, controller_yaml],
-        output='both'
-    )
-
-    Joint_state_broadcaster_spawner = Node(
+    # 4. Spawners for your controllers
+    joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
         arguments=['joint_state_broadcaster'],
@@ -50,11 +55,10 @@ def generate_launch_description():
         output='screen'
     )
 
-    
     return LaunchDescription([
         gazebo,
+        robot_state_publisher,
         spawn_entity,
-        #Joint_state_broadcaster_spawner,
-        #controller_manager,
+        #joint_state_broadcaster_spawner,
         #diff_drive_spawner
     ])

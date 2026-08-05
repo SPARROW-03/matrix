@@ -16,8 +16,7 @@ def generate_launch_description():
     rviz_config_file = os.path.join(pkg_path, 'config', 'rviz.rviz')
 
     # Process URDF file with xacro
-    robot_description=xacro.process_file(urdf_file).toxml()
-
+    robot_description = xacro.process_file(urdf_file).toxml()
 
     # Robot state publisher - pass URDF CONTENT, not path
     node_robot_state_publisher = Node(
@@ -45,6 +44,22 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}]
     )
 
+    # NEW: Static Transform Publisher to bridge 'odom' to your robot's root frame
+    # Arguments: x y z yaw pitch roll parent_frame child_frame
+    static_tf_publisher = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_publisher',
+        arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom'],
+        parameters=[{'use_sim_time': use_sim_time}]
+    )
+    static_tf_publisher_odom = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_publisher',
+        arguments=['0', '0', '0', '0', '0', '0', 'odom', 'base_link'],
+        parameters=[{'use_sim_time': use_sim_time}]
+    )
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
@@ -52,5 +67,7 @@ def generate_launch_description():
             description='Use sim time if true'),
         node_robot_state_publisher,
         rviz,
-        #joint_state_publisher
+        joint_state_publisher,
+        static_tf_publisher ,  # Added here
+        static_tf_publisher_odom  # Added here
     ])
