@@ -44,6 +44,7 @@ Fix vs. earlier version:
 
 import os
 import numpy as np
+from ament_index_python import get_package_share_directory
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
@@ -54,13 +55,14 @@ from cv_bridge import CvBridge
 
 import cv2
 
+pkg_path = get_package_share_directory('matrix_bot')
 
 # ----------------------------- Parameters -----------------------------
 
 IMAGE_TOPIC   = '/camera_sensor/image_raw'   # <-- change to match your camera plugin's topic
 CMD_VEL_TOPIC = '/cmd_vel'
 
-TEMPLATE_DIR  = os.path.expanduser('~/dev_ws/templates')  # <-- folder containing digit_1.png ... digit_6.png
+TEMPLATE_DIR  = os.path.join(pkg_path, '/meshes/templates')  # <-- folder containing digit_1.png ... digit_6.png
 
 FIRST_TARGET_ID = 1
 LAST_TARGET_ID  = 6
@@ -94,6 +96,7 @@ CENTER_DEADBAND_PX  = 15
 LOST_FRAMES_LIMIT   = 8   # consecutive missed frames (while tracking) before treated as "passed"
 
 # ------------------------------------------------------------------------
+
 
 
 class MarkerFollower(Node):
