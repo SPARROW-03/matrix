@@ -541,7 +541,7 @@
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
-              <scale>0.8 0.8 0.8</scale>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
         </collision>
@@ -549,7 +549,7 @@
           <geometry>
             <mesh>
               <uri>model://number1/meshes/number.dae</uri>
-              <scale>0.8 0.8 0.8</scale>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
           <material>
@@ -583,16 +583,16 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
-              <scale>0.8 0.8 0.8</scale>
+              <uri>model://number2/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
         </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
-              <scale>0.8 0.8 0.8</scale>
+              <uri>model://number2/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
           <material>
@@ -626,7 +626,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
+              <uri>model://number3/meshes/number.dae</uri>
               <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
@@ -634,7 +634,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
+              <uri>model://number3/meshes/number.dae</uri>
               <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
@@ -669,7 +669,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
+              <uri>model://number4/meshes/number.dae</uri>
               <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
@@ -677,7 +677,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
+              <uri>model://number4/meshes/number.dae</uri>
               <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
@@ -712,16 +712,16 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
-              <scale>0.8 0.8 0.8</scale>
+              <uri>model://number5/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
         </collision>
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
-              <scale>0.8 0.8 0.8</scale>
+              <uri>model://number5/meshes/number.dae</uri>
+              <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
           <material>
@@ -755,7 +755,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://number1/meshes/number.dae</uri>
+              <uri>model://number6/meshes/number.dae</uri>
               <scale>0.9 0.9 0.9</scale>
             </mesh>
           </geometry>
