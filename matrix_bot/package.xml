@@ -2,19 +2,23 @@
 <package format="3">
   <name>matrix_bot</name>
   <version>1.0.0</version>
-  <description>URDF Description package for Matrix_bot</description>
-  <maintainer email="your.email@example.com">Your Name</maintainer>
-  <license>BSD</license>
+  <description>Robot description, simulation and control package for Matrix Bot</description> 
+  <maintainer email="devaraj309@gmail.com">Devaraj</maintainer>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend> 
   <exec_depend>rclpy</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
 
   <depend>launch</depend>
   <depend>robot_state_publisher</depend>
   <depend>rviz2</depend>
   <depend>joint_state_publisher_gui</depend>
   <depend>gazebo_ros</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

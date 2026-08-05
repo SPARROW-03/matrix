@@ -1,25 +1,41 @@
 cmake_minimum_required(VERSION 3.8)
 project(matrix_bot)
 
+# -------------------------
+# Find packages
+# -------------------------
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 
+find_package(rclpy REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(ament_index_python REQUIRED)
 
-# install files and resources
+# -------------------------
+# Install resources
+# -------------------------
 install(
-	DIRECTORY config launch meshes urdf world
-	DESTINATION share/${PROJECT_NAME}
+  DIRECTORY
+    config
+    launch
+    meshes
+    urdf
+    world
+  DESTINATION share/${PROJECT_NAME}
 )
 
-
-
-# Install python scripts
+# -------------------------
+# Install Python nodes
+# -------------------------
 install(
-	PROGRAMS
-	    scripts/block_detector.py
-		scripts/navigation.py
-		scripts/point_navigation.py
-	DESTINATION lib/${PROJECT_NAME}	
+  PROGRAMS
+    scripts/block_detector.py
+    scripts/navigation.py
+    scripts/crop_template.py
+    scripts/capture.py
+  DESTINATION lib/${PROJECT_NAME}
 )
-
 
 ament_package()
