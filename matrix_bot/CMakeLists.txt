@@ -11,7 +11,6 @@ find_package(rclpy REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
-find_package(ament_index_python REQUIRED)
 
 # -------------------------
 # Install resources
