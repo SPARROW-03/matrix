@@ -62,7 +62,7 @@ pkg_path = get_package_share_directory('matrix_bot')
 IMAGE_TOPIC   = '/camera_sensor/image_raw'   # <-- change to match your camera plugin's topic
 CMD_VEL_TOPIC = '/cmd_vel'
 
-TEMPLATE_DIR  = os.path.join(pkg_path, '/meshes/templates')  # <-- folder containing digit_1.png ... digit_6.png
+TEMPLATE_DIR  = os.path.join(pkg_path, 'meshes', 'templates')  # <-- folder containing digit_1.png ... digit_6.png
 
 FIRST_TARGET_ID = 1
 LAST_TARGET_ID  = 6
