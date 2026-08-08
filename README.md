@@ -77,14 +77,15 @@ The repository includes everything needed to run MATRIX in simulation:
 - Vision-based number detection
 - Target identification (1–6)
 - Autonomous movement toward the detected target
-
-### Planned
 - Goal-pose based navigation
 - Localization
-- Autonomous path planning
-- Autonomous exploration
-- Dynamic obstacle avoidance
 
+### Planned
+
+- Autonomous exploration
+- Autonomous path planning
+- Dynamic obstacle avoidance
+- LLM based thinking
 ---
 
 ## Project Status
