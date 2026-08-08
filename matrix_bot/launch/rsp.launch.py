@@ -68,6 +68,4 @@ def generate_launch_description():
         node_robot_state_publisher,
         rviz,
         joint_state_publisher,
-        static_tf_publisher ,  # Added here
-        static_tf_publisher_odom  # Added here
     ])
