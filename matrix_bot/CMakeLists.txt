@@ -22,6 +22,7 @@ install(
     meshes
     urdf
     world
+    Map
   DESTINATION share/${PROJECT_NAME}
 )
 
