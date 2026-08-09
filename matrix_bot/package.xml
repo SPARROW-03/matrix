@@ -19,6 +19,7 @@
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>cv_bridge</depend>
+  <depend>matrix_interfaces</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

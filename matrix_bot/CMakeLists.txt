@@ -32,7 +32,7 @@ install(
 install(
   PROGRAMS
     scripts/block_detector.py
-    scripts/navigation.py
+    scripts/goal_pose_and_client.py
     scripts/crop_template.py
     scripts/capture.py
   DESTINATION lib/${PROJECT_NAME}
