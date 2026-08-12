@@ -59,6 +59,6 @@ def generate_launch_description():
         gazebo,
         robot_state_publisher,
         spawn_entity,
-        #joint_state_broadcaster_spawner,
-        #diff_drive_spawner
+        #joint_state_broadcaster_spawner,  i have given the controller in the urdf so i commented out here!!
+        #diff_drive_spawner                i have given the controller in the urdf so i commented out here!!
     ])

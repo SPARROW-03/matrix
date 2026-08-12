@@ -12,22 +12,8 @@ def generate_launch_description():
 
     # Get package path and URDF file path
     pkg_path = get_package_share_directory('matrix_bot')
-    urdf_file = os.path.join(pkg_path, 'urdf', 'Matrix_bot.urdf')
     rviz_config_file = os.path.join(pkg_path, 'config', 'rviz.rviz')
 
-    # Process URDF file with xacro
-    robot_description = xacro.process_file(urdf_file).toxml()
-
-    # Robot state publisher - pass URDF CONTENT, not path
-    node_robot_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        output='both',
-        parameters=[{
-            'robot_description': robot_description,
-            'use_sim_time': use_sim_time
-        }],
-    )
     
     rviz = Node(
         package='rviz2',
@@ -65,7 +51,8 @@ def generate_launch_description():
             'use_sim_time',
             default_value='true',
             description='Use sim time if true'),
-        node_robot_state_publisher,
         rviz,
         joint_state_publisher,
+        #static_tf_publisher,     for the static transform from 'map' to 'odom', you can uncomment this if needed
+        #static_tf_publisher_odom    for the static transform from 'odom' to 'base_link', you can uncomment this if needed
     ])
