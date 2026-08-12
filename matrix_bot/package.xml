@@ -18,7 +18,11 @@
   <depend>gazebo_ros</depend>
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
+  <depend>python3-opencv</depend>
   <depend>cv_bridge</depend>
+  <depend>python3-yaml</depend>
+  <depend>nav2_msgs</depend>
+  <depend>gazebo_ros2_control</depend>
   <depend>matrix_interfaces</depend>
 
   <export>
