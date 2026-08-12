@@ -9,12 +9,12 @@ from action_msgs.msg import GoalStatus
 from nav2_msgs.action import NavigateToPose
 from ament_index_python.packages import get_package_share_directory
 from matrix_interfaces.action import NavigateToLocation
-from matrix_interfaces.srv import GetLocation, GoToLocation
+from matrix_interfaces.srv import GetLocation
 
 class LocationNavigation(Node):
     def __init__(self):
         super().__init__('location_navigation')
-        path = os.path.join(get_package_share_directory('matrix_bot'), 'config', 'locations.yaml')
+        path = os.path.join(get_package_share_directory('matrix_bot'), 'config', 'location.yaml')
         with open(path, 'r') as f:
             self.locations = yaml.safe_load(f)['locations']
         self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_pose')
@@ -22,7 +22,6 @@ class LocationNavigation(Node):
         self.current_nav_goal = None
         self.last_feedback_time = self.get_clock().now()
         self.location_service = self.create_service(GetLocation, '/get_location', self.get_location)
-        self.go_to_location_service = self.create_service(GoToLocation, '/go_to_location', self.go_to_location)
         self.server = ActionServer(self, NavigateToLocation, '/navigate_to_location', self.execute, cancel_callback=self.cancel_callback)
         self.get_logger().info('Location navigation ready')
 
@@ -44,24 +43,6 @@ class LocationNavigation(Node):
         response.y = pose['y']
         response.yaw = pose['yaw']
         response.message = f'Location {location} found'
-        return response
-
-    def go_to_location(self, request, response):
-        location = request.location
-        if location not in self.locations:
-            response.success = False
-            response.message = f'Unknown location: {location}'
-            return response
-        if not self.location_action_client.wait_for_server(timeout_sec=1.0):
-            response.success = False
-            response.message = 'NavigateToLocation action not available'
-            return response
-        goal = NavigateToLocation.Goal()
-        goal.location = location
-        self.location_action_client.send_goal_async(goal)
-        response.success = True
-        response.message = f'Navigation started to location {location}'
-        self.get_logger().info(f'Service requested navigation to location {location}')
         return response
 
     async def execute(self, goal_handle):
