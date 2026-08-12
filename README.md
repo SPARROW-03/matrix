@@ -98,7 +98,7 @@ ros2 launch matrix_bot bringup.launch.py
 
 This starts:
 - RViz + `joint_state_publisher` (via `rsp.launch.py`)
-- `map_server`, `amcl`, and the full Nav2 stack under a single lifecycle manager (via `navigation.launch.py`)
+- `map_server`, `amcl`, and the full Nav2 stack under a single lifecycle manager (via `navigation.launch.py`) wait for about 15 sec.
 - the `goal_pose_and_client` node, exposing location lookup/navigation as ROS 2 service and action interfaces
 
 
