@@ -12,7 +12,6 @@ find_package(ament_cmake REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/GetLocation.srv"
-  "srv/GoToLocation.srv"
   "action/NavigateToLocation.action"
 )
 
