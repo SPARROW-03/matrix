@@ -80,7 +80,7 @@ The repository includes everything needed to run MATRIX in simulation:
 - Goal-pose based navigation
 - Localization
 - service-action based navigation
-- Dynamic obstacle avoidance using global map and like lidar data
+- Dynamic obstacle avoidance using global map and lidar data
 
 ### Planned
 
