@@ -29,3 +29,8 @@ locations:
     x: -2.8
     y: -5.6
     yaw: 1.57
+
+  "Docking Station":
+    x: 1.35
+    y: 3.8
+    yaw: 1.57
