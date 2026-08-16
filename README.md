@@ -17,7 +17,8 @@ The robot continuously processes images from its camera to detect numbered targe
 
 - Number detection (1–6) using an onboard camera, via multi-scale template matching
 - Autonomous navigation toward a detected or requested target using Nav2
-- AMCL-based localization against a pre-built map
+- AMCL-based localization against a pre-built map, fused with IMU data via an EKF
+- ArUco marker-based precision docking, with an RL-trained policy (ONNX) driving the final approach
 - Location lookup and goal-dispatch via custom ROS 2 service and action interfaces
 - Modular, node-based ROS 2 architecture
 - Gazebo simulation support for development and testing
@@ -28,7 +29,10 @@ The robot continuously processes images from its camera to detect numbered targe
 
 - ROS 2 Humble
 - Nav2 (map_server, AMCL, controller/planner/behavior servers, BT navigator)
-- Python 3, OpenCV, cv_bridge
+- robot_localization (EKF sensor fusion)
+- OpenCV / ArUco (cv2.aruco) for marker detection
+- ONNX Runtime for the trained docking policy (trained in MuJoCo, deployed via onnxruntime)
+- Python 3, cv_bridge
 - Gazebo Classic
 - Ubuntu 22.04
 
@@ -124,6 +128,40 @@ ros2 action send_goal /navigate_to_location matrix_interfaces/action/NavigateToL
 
 Known locations are defined in `matrix_bot/config/location.yaml`.
 
+### 5. Dock to the charging station 
+
+```bash
+ros2 action send_goal /dock_to_station matrix_interfaces/action/DockToStation "{}"
+```
+
+The robot approaches the dock's ArUco marker, runs a search → approach → align sequence, and hands off final positioning to a trained RL policy for precise centering. To undock:
+
+```bash
+ros2 action send_goal /undock_from_station matrix_interfaces/action/UndockFromStation "{}"
+```
+
+---
+
+## Services & Actions
+
+All interfaces are defined in `matrix_interfaces`. This is the full public API surface for controlling MATRIX externally.
+
+### Actions
+
+- **`/navigate_to_location`** — `matrix_interfaces/action/NavigateToLocation`
+  Sends the robot to a named location via Nav2. Reports live distance remaining as feedback.
+
+- **`/dock_to_station`** — `matrix_interfaces/action/DockToStation`
+  Executes the full ArUco-guided docking sequence (search → approach → align → RL-policy fine positioning).
+
+- **`/undock_from_station`** — `matrix_interfaces/action/UndockFromStation`
+  Reverses off the dock to a safe clearance pose.
+
+### Services
+
+- **`/get_location`** — `matrix_interfaces/srv/GetLocation`
+  Looks up the stored x, y, yaw pose for a named location, without triggering navigation.
+
 ---
 
 ## Calibrating New Digit Templates
@@ -158,6 +196,9 @@ Nav2 Goal Dispatch
   │
   ▼
 Robot Movement
+  │
+  ▼
+ArUco Dock Detection → Search/Approach/Align → RL Policy Fine Positioning → Docked
 ```
 
 ---
@@ -167,10 +208,11 @@ Robot Movement
 ### Implemented
 - Vision-based number detection (multi-scale template matching)
 - Autonomous movement toward a detected target
-- AMCL-based localization
+- AMCL-based localization, fused with IMU via EKF
 - Goal-pose based navigation via Nav2
 - Custom service/action interfaces for direct location requests
 - Costmap-based obstacle avoidance via Nav2's global/local costmaps and lidar
+- ArUco marker-based precision docking, with an RL-trained (MuJoCo, deployed via ONNX) policy handling final approach
 
 ### Planned
 - Autonomous exploration
