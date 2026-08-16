@@ -26,18 +26,22 @@
             <left_joint>left_wheel_joint</left_joint>
             <right_joint>right_wheel_joint</right_joint>
 
-            <wheel_separation>0.1</wheel_separation>
+            <wheel_separation>0.115</wheel_separation>
             <wheel_diameter>0.05</wheel_diameter>
 
+            <max_wheel_torque>5.0</max_wheel_torque>           
+            <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
             <command_topic>cmd_vel</command_topic>
+            <cmd_vel_timeout>0.2</cmd_vel_timeout>
 
             <publish_odom>true</publish_odom>
-            <publish_odom_tf>true</publish_odom_tf>
+            <publish_odom_tf>false</publish_odom_tf>
 
             <odometry_topic>odom</odometry_topic>
             <odometry_frame>odom</odometry_frame>
             <robot_base_frame>base_link</robot_base_frame>
-            <publish_tf>true</publish_tf>
+            <publish_tf>false</publish_tf>
         </plugin>
     </gazebo>
 

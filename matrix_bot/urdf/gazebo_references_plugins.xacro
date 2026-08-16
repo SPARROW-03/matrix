@@ -18,24 +18,28 @@
     <material>Gazebo/SkyBlue</material>
   </gazebo>
 
-  <gazebo reference="left_wheel">
-    <material>Gazebo/Black</material>
-    <mu>1.0</mu>
-    <mu2>1.0</mu2>
-    <kp>1e6</kp>
-    <kd>1.0</kd>
-  </gazebo>
+<gazebo reference="left_wheel">
+  <material>Gazebo/Black</material>
+  <mu1>1.0</mu1>    <!-- keep forward traction high -->
+  <mu2>0.15</mu2> <!-- let the wheel scrub sideways during turns -->
+  <kp>1e6</kp>
+  <kd>100.0</kd>
+  <fdir1>1 0 0</fdir1>  <!-- pin the friction direction explicitly -->
+</gazebo>
 
-  <gazebo reference="right_wheel">
-    <material>Gazebo/Black</material>
-    <mu>1.0</mu>
-    <mu2>1.0</mu2>
-    <kp>1e6</kp>
-    <kd>1.0</kd>
-  </gazebo>
+<gazebo reference="right_wheel">
+  <material>Gazebo/Black</material>
+  <mu1>1.0</mu1>
+  <mu2>0.15</mu2>
+  <kp>1e6</kp>
+  <kd>100.0</kd>
+  <fdir1>1 0 0</fdir1>
+</gazebo>
 
   <gazebo reference="castor">
     <material>Gazebo/Grey</material>
+    <mu1 value="0.001"/>
+    <mu2 value="0.001"/>
   </gazebo>
 
   <gazebo reference="imu">
