@@ -9,7 +9,7 @@ import xacro
 def generate_launch_description():
     pkg_path = os.path.join(get_package_share_directory('matrix_bot'))
     urdf_file = os.path.join(pkg_path, 'urdf', 'Matrix_bot.urdf')
-    world = os.path.join(pkg_path, 'world', 'matrix.world')
+    world = os.path.join(pkg_path, 'world', 'matrix_aruco.world')
     # Process XACRO/URDF file
     robot_description_xml = xacro.process_file(urdf_file).toxml()
 
