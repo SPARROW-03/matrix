@@ -23,8 +23,24 @@ def generate_launch_description():
         output='screen',
     )
 
+    dock_controller_node=Node(
+        package='matrix_bot',
+        executable='dock_controller.py',
+        name='dock_controller',
+        output='screen'
+    )
+
+    tag_node=Node(
+        package='matrix_bot',
+        executable='aruco_detector.py',
+        name='aruco_tag',
+        output='screen'
+    )
+
     return LaunchDescription([
         rviz_visualization,
         TimerAction(period=5.0, actions=[navigation]), 
         TimerAction(period=10.0, actions=[Location_navigation_node]),
+        TimerAction(period=10.0, actions=[dock_controller_node]),
+        TimerAction(period=10.0,actions=[tag_node])
     ])
