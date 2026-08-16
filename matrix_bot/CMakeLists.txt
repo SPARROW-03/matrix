@@ -22,6 +22,7 @@ install(
     meshes
     urdf
     world
+    Model
     Map
   DESTINATION share/${PROJECT_NAME}
 )
@@ -35,6 +36,8 @@ install(
     scripts/goal_pose_and_client.py
     scripts/crop_template.py
     scripts/capture.py
+    scripts/aruco_detector.py
+    scripts/dock_controller.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
