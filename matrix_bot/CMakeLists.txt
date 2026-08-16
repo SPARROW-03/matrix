@@ -38,6 +38,7 @@ install(
     scripts/capture.py
     scripts/aruco_detector.py
     scripts/dock_controller.py
+    scripts/llm_task_planner.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
