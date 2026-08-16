@@ -13,7 +13,7 @@ def generate_launch_description():
     # Get package path and URDF file path
     pkg_path = get_package_share_directory('matrix_bot')
     rviz_config_file = os.path.join(pkg_path, 'config', 'rviz.rviz')
-
+    ekf_config_path = os.path.join(pkg_path, 'config', 'ekf.yaml')
     
     rviz = Node(
         package='rviz2',
@@ -30,6 +30,15 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}]
     )
 
+    ekf_node = Node(
+            package='robot_localization',
+            executable='ekf_node',
+            name='ekf_filter_node',
+            output='screen',
+            parameters=[
+                ekf_config_path,{'use_sim_time': use_sim_time}
+            ]
+        )
     # NEW: Static Transform Publisher to bridge 'odom' to your robot's root frame
     # Arguments: x y z yaw pitch roll parent_frame child_frame
     static_tf_publisher = Node(
@@ -53,6 +62,7 @@ def generate_launch_description():
             description='Use sim time if true'),
         rviz,
         joint_state_publisher,
+        ekf_node,
         #static_tf_publisher,     for the static transform from 'map' to 'odom', you can uncomment this if needed
         #static_tf_publisher_odom    for the static transform from 'odom' to 'base_link', you can uncomment this if needed
     ])
