@@ -159,18 +159,17 @@ class ArucoDockDetector(Node):
         dist_err = dx - self.standoff
         dyaw_deg = math.degrees(dyaw)
 
-        print("\n" + "=" * 60)
-        print(f" [ArUco ID {self.dock_marker_id}] DOCK RELATIVE POSE")
-        print("-" * 60)
-        print(f" Image Center (cx)        : {cx:.1f} px | Frame Width: {img_w} px")
-        print(f" Tag Centroid (u)         : {tag_center_u:.1f} px")
-        print(f" Pixel Offset (u - cx)    : {pixel_offset_x:+.1f} px")
-        print(f" Forward Distance (dx)    : {dx:+.4f} m (Err: {dist_err:+.4f} m)")
-        print(f" Lateral Offset   (dy)    : {dy:+.4f} m")
-        print(f" Heading Error    (dyaw)  : {dyaw:+.4f} rad ({dyaw_deg:+.2f}°)")
-        print(f" Observation Vector       : [{dx:.3f}, {dy:.3f}, {math.sin(dyaw):.3f}, {math.cos(dyaw):.3f}]")
-        print("=" * 60)
-
+    #    print("\n" + "=" * 60)
+    #    print(f" [ArUco ID {self.dock_marker_id}] DOCK RELATIVE POSE")
+    #    print("-" * 60)
+    #    print(f" Image Center (cx)        : {cx:.1f} px | Frame Width: {img_w} px")
+    #    print(f" Tag Centroid (u)         : {tag_center_u:.1f} px")
+    #    print(f" Pixel Offset (u - cx)    : {pixel_offset_x:+.1f} px")
+    #    print(f" Forward Distance (dx)    : {dx:+.4f} m (Err: {dist_err:+.4f} m)")
+    #    print(f" Lateral Offset   (dy)    : {dy:+.4f} m")
+    #    print(f" Heading Error    (dyaw)  : {dyaw:+.4f} rad ({dyaw_deg:+.2f}°)")
+    #    print(f" Observation Vector       : [{dx:.3f}, {dy:.3f}, {math.sin(dyaw):.3f}, {math.cos(dyaw):.3f}]")
+    #    print("=" * 60)
 
 def main():
     rclpy.init()
