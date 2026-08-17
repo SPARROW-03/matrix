@@ -105,7 +105,7 @@ pip3 install openai python-dotenv onnxruntime numpy
 ```bash
 mkdir -p ~/dev_ws/src
 cd ~/dev_ws/src
-git clone [https://github.com/SPARROW-03/matrix.git](https://github.com/SPARROW-03/matrix.git) matrix
+git clone https://github.com/SPARROW-03/matrix.git matrix
 cd ~/dev_ws
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install
@@ -332,8 +332,7 @@ ros2 run matrix_bot crop_template.py raw_digit_1.png meshes/templates/digit_1.pn
 Mechatronics Engineer | Robotics & Autonomous Systems
 
 * **LinkedIn:** [linkedin.com/in/vcdevaraj03](https://linkedin.com/in/vcdevaraj03)
-* **GitHub:** [github.com/SPARROW-03](https://www.google.com/search?q=https://github.com/SPARROW-03)
-
+* **GitHub:** [github.com/SPARROW-03](https://github.com/SPARROW-03)
 ```
 
 ```
