@@ -170,7 +170,7 @@ In a third terminal:
 
 ```bash
 # Start ArUco dock pose detector
-ros2 run matrix_bot aruco_dock_detector.py
+ros2 run matrix_bot aruco_detector.py
 
 ```
 
