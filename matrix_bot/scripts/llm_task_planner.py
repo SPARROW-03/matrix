@@ -29,6 +29,9 @@ from ament_index_python.packages import get_package_share_directory
 from matrix_interfaces.action import NavigateToLocation, DockToStation, UndockFromStation
 from matrix_interfaces.srv import GetLocation
 
+from std_msgs.msg import Bool
+from rclpy.qos import QoSProfile, DurabilityPolicy
+
 from openai import OpenAI
 
 
@@ -114,7 +117,16 @@ def build_system_prompt(location_names: List[str]) -> str:
         "any `navigate_to_location` goal to prevent physical collisions with the dock.\n"
         "3. To dock, the robot must first navigate to 'Docking Station' before invoking `dock_to_station`.\n"
         "4. Parse multi-stage user intents into the exact sequential tool calls required.\n"
-        "5. Respond concisely and conversationally upon completion."
+        "5. Respond concisely and conversationally upon completion.\n"
+        "6. Always check the robot's docked status before issuing navigation commands. Use `get_robot_status` "
+        "to verify. Internally assume the robot is docked at the start of a conversation unless you have "
+        "already undocked it during this session -- do not mention this assumption to the operator unless "
+        "it's directly relevant to explaining an outcome.\n"
+        "7. NEVER call a tool unless the operator has given an explicit instruction requiring it. Greetings, "
+        "small talk, questions about capabilities, or ambiguous statements are NOT commands -- respond "
+        "conversationally instead, with no tool call. Do not perform extra actions beyond what was actually "
+        "asked, even if you think they logically follow or would be helpful. If you are unsure whether the "
+        "operator is actually requesting an action, ask a clarifying question rather than guessing and acting."
     )
 
 
@@ -127,7 +139,7 @@ class LLMTaskPlanner(Node):
         # ----------------------------------------------------
         # ROS 2 Parameters Configuration
         # ----------------------------------------------------
-        default_env = str(Path.home() / 'dev_ws' / 'src' / 'Matrix' / '.env')
+        default_env = str(Path.home() / 'dev_ws' / 'src' / 'matrix' / '.env')
         self.declare_parameter('env_file_path', default_env)
         self.declare_parameter('llm_base_url', 'https://api.groq.com/openai/v1')
         self.declare_parameter('llm_model', 'llama-3.3-70b-versatile')
@@ -160,9 +172,18 @@ class LLMTaskPlanner(Node):
         # ----------------------------------------------------
         # State Tracking & Waypoint Configuration
         # ----------------------------------------------------
-        self.is_docked: bool = False
+        self.is_docked: bool = False  # placeholder until the real status arrives below
         self.location_names: List[str] = load_location_names()
         self.get_logger().info(f'Available topological waypoints: {self.location_names}')
+
+        # Ground-truth dock status comes from dock_controller.py, not from
+        # whatever this node happened to observe locally -- a fresh restart
+        # of this node would otherwise forget the robot was already docked.
+        # TRANSIENT_LOCAL durability means we get the last published value
+        # immediately on subscribe, even if dock_controller published it
+        # before this node started.
+        status_qos = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+        self.create_subscription(Bool, '/is_docked', self._dock_status_cb, status_qos)
 
         # ----------------------------------------------------
         # ROS 2 Interfaces (Reentrant for concurrent callbacks)
@@ -180,6 +201,11 @@ class LLMTaskPlanner(Node):
         # Background conversational shell thread
         self.chat_thread = threading.Thread(target=self._chat_loop, daemon=True)
         self.chat_thread.start()
+
+    def _dock_status_cb(self, msg: Bool) -> None:
+        if msg.data != self.is_docked:
+            self.get_logger().info(f'Dock status updated from /is_docked: {msg.data}')
+        self.is_docked = msg.data
 
     # ----------------------------------------------------
     # Action Client Dispatch Helpers
@@ -225,16 +251,10 @@ class LLMTaskPlanner(Node):
             return self._call_action(self.nav_client, goal)
 
         if name == "dock_to_station":
-            res = self._call_action(self.dock_client, DockToStation.Goal())
-            if res.get("success", False):
-                self.is_docked = True
-            return res
+            return self._call_action(self.dock_client, DockToStation.Goal())
 
         if name == "undock_from_station":
-            res = self._call_action(self.undock_client, UndockFromStation.Goal())
-            if res.get("success", False):
-                self.is_docked = False
-            return res
+            return self._call_action(self.undock_client, UndockFromStation.Goal())
 
         if name == "get_location":
             req = GetLocation.Request()
@@ -271,14 +291,22 @@ class LLMTaskPlanner(Node):
             self.messages.append({"role": "user", "content": user_input})
 
             for _ in range(6):
-                try:
-                    response = self.client.chat.completions.create(
-                        model=self.model,
-                        messages=self.messages,
-                        tools=TOOLS,
-                    )
-                except Exception as err:
-                    print(f"\n[Error] Inference failed: {err}\n")
+                response = None
+                for attempt in range(3):  # tool_use_failed from the LLM backend is often transient -- retry before giving up
+                    try:
+                        response = self.client.chat.completions.create(
+                            model=self.model,
+                            messages=self.messages,
+                            tools=TOOLS,
+                        )
+                        break
+                    except Exception as err:
+                        if attempt < 2:
+                            print(f"  [retrying after transient error: {err}]")
+                            continue
+                        print(f"\n[Error] Inference failed after retries: {err}\n")
+
+                if response is None:
                     break
 
                 choice = response.choices[0].message
