@@ -39,38 +39,60 @@ MATRIX is a ROS 2–based autonomous mobile robot platform designed for intellig
 
 ## Repository Layout
 
+The repository is organized into two ROS 2 packages: the core robot package and the custom interface package.
 
-```
-
+```text
 matrix/
-├── .env.example             # Template for API credentials and LLM configuration
-├── matrix_bot/              # Core robot package
-│   ├── config/              # Nav2 parameters, costmaps, location.yaml, EKF config
-│   ├── launch/              # sim.launch.py, bringup.launch.py, navigation.launch.py
-│   ├── Map/                 # 2D occupancy grid maps for AMCL localization
-│   ├── meshes/              # CAD meshes, ArUco visual markers, digit templates
-│   ├── Model/               # ONNX RL docking policy models (docking_policy.onnx)
-│   ├── scripts/             # Python nodes:
-│   │   ├── llm_task_planner.py      # LLM conversational task planner
-│   │   ├── dock_controller.py       # RL docking action server & undock controller
-│   │   ├── aruco_dock_detector.py   # Visual ArUco pose estimation node
-│   │   ├── block_detector.py        # Template-matching digit follower
-│   │   ├── goal_pose_and_client.py  # Waypoint navigation action/service provider
-│   │   ├── capture.py               # Vision calibration capture utility
-│   │   └── crop_template.py         # Template extraction utility
-│   ├── urdf/                # URDF/Xacro kinematic model and sensor plugins
-│   └── world/               # Gazebo simulation worlds with targets and docking station
-└── matrix_interfaces/       # Custom ROS 2 message definitions (Action & Srv)
-├── action/
-│   ├── NavigateToLocation.action
-│   ├── DockToStation.action
-│   └── UndockFromStation.action
-└── srv/
-└── GetLocation.srv
-
+├── .env.example
+├── .gitignore
+├── LICENSE
+│
+├── matrix_bot/                         # Core robot package
+│   ├── config/                         # Navigation, costmap & EKF parameters
+│   ├── launch/                         # Simulation, bringup & navigation launch files
+│   ├── Map/                            # 2D occupancy-grid maps
+│   ├── meshes/                         # CAD meshes, ArUco markers & digit templates
+│   ├── Model/                          # ONNX RL docking policy
+│   │
+│   ├── scripts/                        # Python autonomy & perception nodes
+│   │   ├── llm_task_planner.py         # LLM task planner
+│   │   ├── dock_controller.py          # RL docking action server
+│   │   ├── aruco_dock_detector.py      # ArUco pose estimation
+│   │   ├── block_detector.py           # Visual digit detection
+│   │   ├── goal_pose_and_client.py     # Waypoint navigation
+│   │   ├── capture.py                  # Camera calibration utility
+│   │   └── crop_template.py            # Template extraction utility
+│   │
+│   ├── urdf/                           # URDF/Xacro robot model & sensor plugins
+│   └── world/                          # Gazebo simulation worlds
+│
+├── matrix_interfaces/                  # Custom ROS 2 interfaces
+│   ├── action/
+│   │   ├── NavigateToLocation.action
+│   │   ├── DockToStation.action
+│   │   └── UndockFromStation.action
+│   └── srv/
+│       └── GetLocation.srv
+│
+└── README.md
 ```
 
----
+### Package Responsibilities
+
+**`matrix_bot`**
+
+→ Core autonomy, navigation, perception, simulation, and control logic  
+→ Nav2 navigation and localization  
+→ Vision-based target detection  
+→ RL-based precision docking  
+→ LLM task planning  
+→ Gazebo simulation and robot description  
+
+**`matrix_interfaces`**
+
+→ Defines the ROS 2 Actions and Services used to expose high-level robot capabilities  
+→ Provides the communication boundary between external planners and the robot autonomy stack  
+
 
 ## Prerequisites & Installation
 
@@ -129,7 +151,7 @@ cp .env.example .env
 
 2. Populate your `.env` with your API credentials:
 ```env
-LLM_BASE_URL=[https://api.groq.com/openai/v1](https://api.groq.com/openai/v1)
+LLM_BASE_URL=https://api.groq.com/openai/v1
 LLM_API_KEY=your_actual_api_key_here
 LLM_MODEL=llama-3.3-70b-versatile
 
@@ -276,37 +298,112 @@ All interfaces are declared in `matrix_interfaces`:
 
 ## System Architecture
 
-```
-                      ┌────────────────────────────────────────┐
-                      │        LLM Natural Language Shell      │
-                      │  (Tool Calling & Safety State Machine) │
-                      └───────────────────┬────────────────────┘
-                                          │
-                   ┌──────────────────────┴──────────────────────┐
-                   │                                             │
-                   ▼                                             ▼
-     ┌───────────────────────────┐                 ┌───────────────────────────┐
-     │   /navigate_to_location   │                 │      /dock_to_station     │
-     │       (Nav2 Action)       │                 │       (RL Controller)     │
-     └─────────────┬─────────────┘                 └─────────────┬─────────────┘
-                   │                                             │
-                   │ Global/Local Planning                       │ 50 Hz ONNX Policy
-                   ▼                                             ▼
-     ┌───────────────────────────┐                 ┌───────────────────────────┐
-     │    AMCL + EKF Localization│                 │  ArUco Marker Pose Est.   │
-     │    LiDAR Costmap Clearing │                 │  /detected_dock_pose      │
-     └─────────────┬─────────────┘                 └─────────────┬─────────────┘
-                   │                                             │
-                   └──────────────────────┬──────────────────────┘
-                                          │
-                                          ▼
-                               ┌─────────────────────┐
-                               │   /cmd_vel (Robot)  │
-                               └─────────────────────┘
+MATRIX follows a layered ROS 2 autonomy architecture. High-level task planning is separated from navigation, perception, localization, and low-level control.
 
+```text
+┌──────────────────────────────────────────────────────────────┐
+│                    HIGH-LEVEL AUTONOMY                       │
+│                                                              │
+│              LLM Natural Language Task Planner               │
+│       Tool Calling • Context • Safety State Machine          │
+└──────────────────────────────┬───────────────────────────────┘
+                               │
+                               │ ROS 2 Actions / Services
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                  BEHAVIOUR / TASK LAYER                      │
+│                                                              │
+│   Navigation Action       Docking Action      Undock Action  │
+│   /navigate_to_location   /dock_to_station    /undock...     │
+└───────────────┬──────────────────────┬───────────────────────┘
+                │                      │
+                ▼                      ▼
+┌──────────────────────────┐  ┌────────────────────────────────┐
+│ NAVIGATION & LOCALIZATION│  │       PERCEPTION & DOCKING      │
+│                          │  │                                │
+│ Nav2                     │  │ Camera                         │
+│ AMCL                     │  │      │                         │
+│ robot_localization (EKF) │  │      ▼                         │
+│ LiDAR Costmaps           │  │ ArUco Pose Estimation          │
+│ Waypoint Dispatch        │  │      │                         │
+│                          │  │      ▼                         │
+│                          │  │ RL Docking Controller           │
+│                          │  │      │                         │
+│                          │  │      ▼                         │
+│                          │  │ ONNX Policy @ 50 Hz             │
+└──────────────┬───────────┘  └────────────────┬───────────────┘
+               │                               │
+               └───────────────┬───────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                    ROBOT CONTROL LAYER                       │
+│                                                              │
+│                 Diff-Drive / Velocity Control                │
+│                         /cmd_vel                             │
+└──────────────────────────────┬───────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                       ROBOT PLATFORM                         │
+│                                                              │
+│        URDF/Xacro • Sensors • Gazebo Simulation              │
+└──────────────────────────────────────────────────────────────┘
 ```
 
----
+### Data Flow
+
+The main autonomy flow is:
+
+```text
+Operator
+   │
+   ▼
+Natural Language Command
+   │
+   ▼
+LLM Task Planner
+   │
+   ├──────────────► Navigation Action
+   │                     │
+   │                     ▼
+   │              Nav2 + AMCL + EKF
+   │                     │
+   │                     ▼
+   │                 /cmd_vel
+   │
+   ├──────────────► Docking Action
+   │                     │
+   │                     ▼
+   │              ArUco Pose Detection
+   │                     │
+   │                     ▼
+   │              ONNX RL Controller
+   │                     │
+   │                     ▼
+   │                 /cmd_vel
+   │
+   └──────────────► Undock Action
+                         │
+                         ▼
+                  Odometry-based
+                   clearance control
+```
+
+### Architecture Principles
+
+→ **Layered autonomy:** High-level task planning is separated from navigation and control.
+
+→ **ROS 2 interfaces:** Actions and Services provide clean interfaces between the planner and robot behaviours.
+
+→ **Independent behaviours:** Navigation, docking, undocking, perception, and task planning operate as separate ROS 2 components.
+
+→ **Sensor-driven autonomy:** Localization and perception use the available LiDAR, odometry, IMU, and camera information.
+
+→ **Learned terminal control:** Precision docking uses an ONNX Runtime reinforcement-learning policy.
+
+→ **Simulation-first validation:** The complete stack can be evaluated in Gazebo before deployment to the physical platform.
+
 
 ## Calibrating Digit Templates
 
